@@ -1,0 +1,211 @@
+package com.rays.ctl;
+
+import java.io.OutputStream;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.rays.common.BaseCtl;
+import com.rays.common.DropdownList;
+import com.rays.common.ORSResponse;
+import com.rays.dto.AttachmentDTO;
+import com.rays.dto.RoleDTO;
+import com.rays.dto.UserDTO;
+import com.rays.form.ChangePasswordForm;
+import com.rays.form.MyProfileForm;
+import com.rays.form.UserForm;
+import com.rays.service.AttachmentServiceInt;
+import com.rays.service.RoleServiceInt;
+import com.rays.service.UserServiceInt;
+
+/**
+ * UserCtl is a REST Controller for handling User related operations.
+ * 
+ * It extends BaseCtl which provides generic CRUD operations.
+ * 
+ * This controller also handles: - Role preload for dropdown - Profile update -
+ * Change password - Upload and download profile picture
+ * 
+ * All endpoints are mapped under "/User".
+ * 
+ * @author Deepak Verma
+ */
+@RestController
+@RequestMapping(value = "User")
+public class UserCtl extends BaseCtl<UserForm, UserDTO, UserServiceInt> {
+
+	/**
+	 * User service
+	 */
+	@Autowired
+	public UserServiceInt userService;
+
+	/**
+	 * Attachment service for file upload/download
+	 */
+	@Autowired
+	AttachmentServiceInt attachmentService;
+
+	/**
+	 * Role service
+	 */
+	@Autowired
+	RoleServiceInt roleService = null;
+
+	/**
+	 * Preload API to fetch role list
+	 */
+	@GetMapping("preload")
+	public ORSResponse preload() {
+
+		ORSResponse res = new ORSResponse(true);
+
+		RoleDTO dto = new RoleDTO();
+
+		// dto.setStatus(RoleDTO.ACTIVE);
+
+		List<DropdownList> list = roleService.search(dto, userContext);
+
+		res.addResult("roleList", list);
+
+		return res;
+	}
+
+	/**
+	 * Update user profile
+	 */
+	@PostMapping("myProfile")
+	public ORSResponse myProfile(@RequestBody @Valid MyProfileForm form, BindingResult bindingResult) {
+
+		ORSResponse res = validate(bindingResult);
+
+		if (!res.isSuccess()) {
+			return res;
+		}
+
+		UserDTO dto = baseService.findById(userContext.getUserId(), userContext);
+
+		dto.setFirstName(form.getFirstName());
+		dto.setLastName(form.getLastName());
+		dto.setDob(form.getDob());
+		dto.setPhone(form.getPhone());
+		dto.setGender(form.getGender());
+
+		baseService.update(dto, userContext);
+
+		res.setSuccess(true);
+		res.addMessage("Your Profile updated successfully..!!");
+
+		return res;
+	}
+
+	/**
+	 * Change user password
+	 */
+	@PostMapping("changePassword")
+	public ORSResponse changePassword(@RequestBody @Valid ChangePasswordForm form, BindingResult bindingResult) {
+
+		ORSResponse res = validate(bindingResult);
+
+		if (!res.isSuccess()) {
+			return res;
+		}
+
+		UserDTO changedDto = baseService.changePassword(form.getLoginId(), form.getOldPassword(), form.getNewPassword(),
+				userContext);
+
+		if (changedDto == null) {
+			res.setSuccess(false);
+			res.addMessage("Invalid old password");
+			return res;
+		}
+
+		res.setSuccess(true);
+		res.addMessage("Password has been changed");
+
+		return res;
+	}
+
+	/**
+	 * Upload profile picture
+	 */
+	@PostMapping(value = "/profilePic/{userId}", consumes = "multipart/form-data")
+	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file) {
+
+		try {
+
+			if (file == null || file.isEmpty()) {
+				throw new RuntimeException("File is empty!");
+			}
+
+			System.out.println("File Name: " + file.getOriginalFilename());
+			System.out.println("File Size: " + file.getSize());
+
+			AttachmentDTO attachmentDto = new AttachmentDTO(file);
+			attachmentDto.setDescription("profile pic");
+			attachmentDto.setUserId(userId);
+
+			UserDTO userDto = baseService.findById(userId, null);
+
+			if (userDto.getImageId() != null && userDto.getImageId() > 0) {
+				attachmentDto.setId(userDto.getImageId());
+			}
+
+			Long imageId = attachmentService.save(attachmentDto, userContext);
+
+			if (userDto.getImageId() == null) {
+				userDto.setImageId(imageId);
+				baseService.update(userDto, userContext);
+			}
+
+			ORSResponse res = new ORSResponse();
+			res.addResult("imageId", imageId);
+
+			return res;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("File upload failed");
+		}
+	}
+
+	/**
+	 * Download profile picture
+	 */
+	@GetMapping("/profilePic/{userId}")
+	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
+
+		try {
+
+			UserDTO userDto = baseService.findById(userId, null);
+
+			if (userDto == null || userDto.getImageId() == null) {
+				response.getWriter().write("No image found");
+				return;
+			}
+
+			AttachmentDTO attachmentDTO = attachmentService.findById(userDto.getImageId(), userContext);
+
+			if (attachmentDTO != null && attachmentDTO.getDoc() != null) {
+
+				response.setContentType(attachmentDTO.getType());
+				OutputStream out = response.getOutputStream();
+				out.write(attachmentDTO.getDoc());
+				out.close();
+
+			} else {
+				response.getWriter().write("File not found");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
