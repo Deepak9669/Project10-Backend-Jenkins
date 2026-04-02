@@ -1,19 +1,11 @@
 services:
-  frontend:
-    container_name: frontend-container
-    build:
-      context: ../ORSProject-10-UI   # ✅ important
-    ports:
-      - "4200:80"
-    depends_on:
-      - backend
 
   backend:
     container_name: backend-container
     build:
-      context: .   # ✅ important
+      context: .
     ports:
-      - "8081:8081"   # ✅ correct
+      - "8081:8081"
     depends_on:
       - mysql
 
