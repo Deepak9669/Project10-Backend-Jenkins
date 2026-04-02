@@ -1,9 +1,8 @@
-version: '3.8'
 services:
   frontend:
     container_name: frontend-container
     build:
-      context: ./ORSProject-10-UI
+      context: ../ORSProject-10-UI   # ✅ FIX
     ports:
       - "4200:80"
     depends_on:
@@ -14,7 +13,7 @@ services:
   backend:
     container_name: backend-container
     build:
-      context: ./ORSProject-10
+      context: .   # ✅ FIX (IMPORTANT)
     ports:
       - "8081:8081"
     depends_on:
@@ -38,7 +37,6 @@ services:
 
 networks:
   my-network:
-    driver: bridge
 
 volumes:
   mysql_data:
