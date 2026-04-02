@@ -2,24 +2,20 @@ services:
   frontend:
     container_name: frontend-container
     build:
-      context: ../ORSProject-10-UI   # ✅ FIX
+      context: ../ORSProject-10-UI   # ✅ important
     ports:
       - "4200:80"
     depends_on:
       - backend
-    networks:
-      - my-network
 
   backend:
     container_name: backend-container
     build:
-      context: .   # ✅ FIX (IMPORTANT)
+      context: .   # ✅ important
     ports:
-      - "8081:8081"
+      - "8081:8081"   # ✅ correct
     depends_on:
       - mysql
-    networks:
-      - my-network
 
   mysql:
     container_name: mysql-container
@@ -32,11 +28,6 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
-    networks:
-      - my-network
-
-networks:
-  my-network:
 
 volumes:
   mysql_data:
