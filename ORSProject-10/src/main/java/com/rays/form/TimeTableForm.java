@@ -9,111 +9,139 @@ import javax.validation.constraints.NotNull;
 import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.TimeTableDTO;
-import com.rays.dto.TimeTableDTO;
 
+/**
+ * TimeTableForm is a Form Bean class used to capture
+ * exam timetable-related input data from the user interface.
+ * 
+ * It includes validation to ensure required fields such as
+ * course, subject, exam date, exam time, semester, and description
+ * are properly filled.
+ * 
+ * This form is converted into TimeTableDTO using getDto()
+ * method for persistence operations.
+ * 
+ * @author Deepak Verma
+ */
 public class TimeTableForm extends BaseForm {
 
-	@NotNull(message = "Course is required")
-	@Min(1)
-	private Long courseId = 0L;
+    /** Course ID (must be selected) */
+    @NotNull(message = "Course is required")
+    @Min(value = 1, message = "Please select a valid course")
+    private Long courseId = 0L;
 
-	private String courseName;
+    /** Course name */
+    private String courseName;
 
-	@NotNull(message = "Subject is required")
-	@Min(1)
-	private Long subjectId = 0L;
+    /** Subject ID (must be selected) */
+    @NotNull(message = "Subject is required")
+    @Min(value = 1, message = "Please select a valid subject")
+    private Long subjectId = 0L;
 
-	private String subjectName;
+    /** Subject name */
+    private String subjectName;
 
-	@NotNull(message = "Exam Date is required")
-	private Date examDate;
+    /** Exam date */
+    @NotNull(message = "Exam Date is required")
+    private Date examDate;
 
-	@NotEmpty(message = "Exam Time is required")
-	private String examTime;
+    /** Exam time */
+    @NotEmpty(message = "Exam Time is required")
+    private String examTime;
 
-	@NotEmpty(message = "Semester is required")
-	private String semester;
+    /** Semester */
+    @NotEmpty(message = "Semester is required")
+    private String semester;
 
-	@NotEmpty(message = "Description is required")
-	private String description;
+    /** Description */
+    @NotEmpty(message = "Description is required")
+    private String description;
 
-	public long getCourseId() {
-		return courseId;
-	}
+    // Getters and Setters
 
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
-	}
+    public long getCourseId() {
+        return courseId;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public long getSubjectId() {
-		return subjectId;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
-	}
+    public long getSubjectId() {
+        return subjectId;
+    }
 
-	public String getSubjectName() {
-		return subjectName;
-	}
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
+    }
 
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
+    public String getSubjectName() {
+        return subjectName;
+    }
 
-	public Date getExamDate() {
-		return examDate;
-	}
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
-	public void setExamDate(Date examDate) {
-		this.examDate = examDate;
-	}
+    public Date getExamDate() {
+        return examDate;
+    }
 
-	public String getExamTime() {
-		return examTime;
-	}
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
+    }
 
-	public void setExamTime(String examTime) {
-		this.examTime = examTime;
-	}
+    public String getExamTime() {
+        return examTime;
+    }
 
-	public String getSemester() {
-		return semester;
-	}
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
+    }
 
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+    public String getSemester() {
+        return semester;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public BaseDTO getDto() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-		TimeTableDTO dto = initDTO(new TimeTableDTO());
-		dto.setCourseId(courseId);
-		dto.setCourseName(courseName);
-		dto.setSubjectId(subjectId);
-		dto.setSubjectName(subjectName);
-		dto.setExamDate(examDate);
-		dto.setExamTime(examTime);
-		dto.setSemester(semester);
-		dto.setDescription(description);
+    /**
+     * Converts form data into DTO object
+     * 
+     * @return populated TimeTableDTO
+     */
+    @Override
+    public BaseDTO getDto() {
 
-		return dto;
-	}
+        TimeTableDTO dto = initDTO(new TimeTableDTO());
+
+        dto.setCourseId(courseId);
+        dto.setCourseName(courseName);
+        dto.setSubjectId(subjectId);
+        dto.setSubjectName(subjectName);
+        dto.setExamDate(examDate);
+        dto.setExamTime(examTime);
+        dto.setSemester(semester);
+        dto.setDescription(description);
+
+        return dto;
+    }
 }

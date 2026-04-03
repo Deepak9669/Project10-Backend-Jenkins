@@ -5,22 +5,47 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * EmailCtl is a REST Controller that handles email-related APIs.
+ * 
+ * It provides endpoints to send emails using EmailService.
+ * 
+ * This controller uses EmailServiceInt to send mail messages.
+ * 
+ * Base URL mapping: /Mail
+ * 
+ * @author Deepak Verma
+ */
 @RestController
 @RequestMapping(name = "Mail")
 public class EmailCtl {
 
-	@Autowired
-	private EmailServiceInt emailService;
+    /**
+     * Email service dependency for sending emails
+     */
+    @Autowired
+    private EmailServiceInt emailService;
 
-	@GetMapping("/send")
-	public String sendMail() {
+    /**
+     * API to send a test email
+     * 
+     * URL: /send
+     * Method: GET
+     * 
+     * @return success message
+     */
+    @GetMapping("/send")
+    public String sendMail() {
 
-		EmailMessage msg = new EmailMessage();
-		msg.setTo("cb@gmail.com");
-		msg.setSubject("Spring Boot Mail");
-		msg.setMessage("Hello, Mail sent successfully!");
+        // Create email message
+        EmailMessage msg = new EmailMessage();
+        msg.setTo("cb@gmail.com");
+        msg.setSubject("Spring Boot Mail");
+        msg.setMessage("Hello, Mail sent successfully!");
 
-		emailService.sendMail(msg);
+        // Send email using service
+        emailService.sendMail(msg);
 
-		return "Mail Sent Successfully";
-	}}
+        return "Mail Sent Successfully";
+    }
+}

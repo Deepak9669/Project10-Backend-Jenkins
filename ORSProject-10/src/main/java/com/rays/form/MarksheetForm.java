@@ -9,91 +9,117 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.MarksheetDTO;
 
+/**
+ * MarksheetForm is a Form Bean class used to capture
+ * student marksheet data from the user interface.
+ * 
+ * It includes validation for roll number, student selection,
+ * and marks in Physics, Chemistry, and Mathematics.
+ * 
+ * This form is converted into MarksheetDTO using getDto()
+ * method for persistence operations.
+ * 
+ * @author Deepak Verma
+ */
 public class MarksheetForm extends BaseForm {
 
-	@NotEmpty(message = "Roll No is required")
-	protected String rollNo = null;
+    /** Roll number of student */
+    @NotEmpty(message = "Roll No is required")
+    protected String rollNo = null;
 
-	@NotNull(message = "Student Name is required")
-	@Min(1)
-	protected Long studentId;
+    /** Student ID (must be selected) */
+    @NotNull(message = "Student Name is required")
+    @Min(value = 1, message = "Please select a valid student")
+    protected Long studentId;
 
-	protected String name = null;
+    /** Student name (optional/display purpose) */
+    protected String name = null;
 
-	@NotNull(message = "Physics is required")
-	@Max(99)
-	@Min(0)
-	protected Integer physics;
+    /** Physics marks (0–99) */
+    @NotNull(message = "Physics is required")
+    @Min(value = 0, message = "Marks cannot be negative")
+    @Max(value = 99, message = "Marks cannot exceed 99")
+    protected Integer physics;
 
-	@NotNull(message = "Chemistry is required")
-	@Max(99)
-	@Min(0)
-	protected Integer chemistry;
+    /** Chemistry marks (0–99) */
+    @NotNull(message = "Chemistry is required")
+    @Min(value = 0, message = "Marks cannot be negative")
+    @Max(value = 99, message = "Marks cannot exceed 99")
+    protected Integer chemistry;
 
-	@NotNull(message = "Maths is required")
-	@Max(99)
-	@Min(0)
-	protected Integer maths;
+    /** Maths marks (0–99) */
+    @NotNull(message = "Maths is required")
+    @Min(value = 0, message = "Marks cannot be negative")
+    @Max(value = 99, message = "Marks cannot exceed 99")
+    protected Integer maths;
 
-	public String getRollNo() {
-		return rollNo;
-	}
+    // Getters and Setters
 
-	public void setRollNo(String rollNo) {
-		this.rollNo = rollNo;
-	}
+    public String getRollNo() {
+        return rollNo;
+    }
 
-	public Long getStudentId() {
-		return studentId;
-	}
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
 
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
+    public Long getStudentId() {
+        return studentId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Integer getPhysics() {
-		return physics;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPhysics(Integer physics) {
-		this.physics = physics;
-	}
+    public Integer getPhysics() {
+        return physics;
+    }
 
-	public Integer getChemistry() {
-		return chemistry;
-	}
+    public void setPhysics(Integer physics) {
+        this.physics = physics;
+    }
 
-	public void setChemistry(Integer chemistry) {
-		this.chemistry = chemistry;
-	}
+    public Integer getChemistry() {
+        return chemistry;
+    }
 
-	public Integer getMaths() {
-		return maths;
-	}
+    public void setChemistry(Integer chemistry) {
+        this.chemistry = chemistry;
+    }
 
-	public void setMaths(Integer maths) {
-		this.maths = maths;
-	}
+    public Integer getMaths() {
+        return maths;
+    }
 
-	@Override
-	public BaseDTO getDto() {
+    public void setMaths(Integer maths) {
+        this.maths = maths;
+    }
 
-		MarksheetDTO dto = initDTO(new MarksheetDTO());
-		dto.setRollNo(rollNo);
-		dto.setName(name);
-		dto.setStudentId(studentId);
-		dto.setPhysics(physics);
-		dto.setChemistry(chemistry);
-		dto.setMaths(maths);
+    /**
+     * Converts form data into DTO object
+     * 
+     * @return populated MarksheetDTO
+     */
+    @Override
+    public BaseDTO getDto() {
 
-		return dto;
-	}
+        MarksheetDTO dto = initDTO(new MarksheetDTO());
+
+        dto.setRollNo(rollNo);
+        dto.setName(name);
+        dto.setStudentId(studentId);
+        dto.setPhysics(physics);
+        dto.setChemistry(chemistry);
+        dto.setMaths(maths);
+
+        return dto;
+    }
 }

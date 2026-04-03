@@ -6,98 +6,132 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * MarksheetDTO is a Data Transfer Object (DTO) class that represents
+ * student marksheet details in the system.
+ * 
+ * It contains information such as roll number, student ID, student name,
+ * and marks obtained in Physics, Chemistry, and Mathematics.
+ * 
+ * This class is mapped to the database table "st_marksheet".
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "st_marksheet")
 public class MarksheetDTO extends BaseDTO {
 
-	@Column(name = "roll_no", length = 20)
-	protected String rollNo = null;
+    /** Roll number of the student */
+    @Column(name = "roll_no", length = 20)
+    protected String rollNo = null;
 
-	@Column(name = "student_id")
-	protected Long studentId;
+    /** Student ID (foreign key reference) */
+    @Column(name = "student_id")
+    protected Long studentId;
 
-	@Column(name = "name", length = 50)
-	protected String name = null;
+    /** Name of the student */
+    @Column(name = "name", length = 50)
+    protected String name = null;
 
-	@Column(name = "physics")
-	protected Integer physics;
+    /** Marks obtained in Physics */
+    @Column(name = "physics")
+    protected Integer physics;
 
-	@Column(name = "chemistry")
-	protected Integer chemistry;
+    /** Marks obtained in Chemistry */
+    @Column(name = "chemistry")
+    protected Integer chemistry;
 
-	@Column(name = "maths")
-	protected Integer maths;
+    /** Marks obtained in Mathematics */
+    @Column(name = "maths")
+    protected Integer maths;
 
-	public String getRollNo() {
-		return rollNo;
-	}
+    // Getters and Setters
 
-	public void setRollNo(String rollNo) {
-		this.rollNo = rollNo;
-	}
+    public String getRollNo() {
+        return rollNo;
+    }
 
-	public Long getStudentId() {
-		return studentId;
-	}
+    public void setRollNo(String rollNo) {
+        this.rollNo = rollNo;
+    }
 
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
+    public Long getStudentId() {
+        return studentId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Integer getPhysics() {
-		return physics;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPhysics(Integer physics) {
-		this.physics = physics;
-	}
+    public Integer getPhysics() {
+        return physics;
+    }
 
-	public Integer getChemistry() {
-		return chemistry;
-	}
+    public void setPhysics(Integer physics) {
+        this.physics = physics;
+    }
 
-	public void setChemistry(Integer chemistry) {
-		this.chemistry = chemistry;
-	}
+    public Integer getChemistry() {
+        return chemistry;
+    }
 
-	public Integer getMaths() {
-		return maths;
-	}
+    public void setChemistry(Integer chemistry) {
+        this.chemistry = chemistry;
+    }
 
-	public void setMaths(Integer maths) {
-		this.maths = maths;
-	}
-	
-	@Override
-	public String getUniqueKey() {
-		return "rollNo";
-	}
+    public Integer getMaths() {
+        return maths;
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return rollNo;
-	}
+    public void setMaths(Integer maths) {
+        this.maths = maths;
+    }
 
-	@Override
-	public String getLabel() {
-		return "Roll No";
-	}
-	
-	@Override
-	public String getTableName() {
-		return "Marksheet";
-	}
+    /**
+     * Returns unique key (roll number)
+     */
+    @Override
+    public String getUniqueKey() {
+        return "rollNo";
+    }
 
-	@Override
-	public String getValue() {
-		return null;
-	}
+    /**
+     * Returns unique value (roll number)
+     */
+    @Override
+    public String getUniqueValue() {
+        return rollNo;
+    }
+
+    /**
+     * Returns label for UI display
+     */
+    @Override
+    public String getLabel() {
+        return "Roll No";
+    }
+
+    /**
+     * Returns table name
+     */
+    @Override
+    public String getTableName() {
+        return "Marksheet";
+    }
+
+    /**
+     * Returns display value (Student Name + Roll No)
+     */
+    @Override
+    public String getValue() {
+        return name + " (" + rollNo + ")";
+    }
 }

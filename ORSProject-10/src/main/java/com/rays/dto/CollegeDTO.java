@@ -6,87 +6,178 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * CollegeDTO is a Data Transfer Object (DTO) class that represents
+ * college information in the system.
+ * 
+ * It contains details such as college name, address, state, city,
+ * and phone number.
+ * 
+ * This class is mapped to the database table "st_college".
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "st_college")
 public class CollegeDTO extends BaseDTO {
 
-	@Column(name = "name", length = 50)
-	private String name;
+    /**
+     * Name of the college
+     */
+    @Column(name = "name", length = 50)
+    private String name;
 
-	@Column(name = "address", length = 50)
-	private String address;
+    /**
+     * Address of the college
+     */
+    @Column(name = "address", length = 50)
+    private String address;
 
-	@Column(name = "state", length = 50)
-	private String state;
+    /**
+     * State where the college is located
+     */
+    @Column(name = "state", length = 50)
+    private String state;
 
-	@Column(name = "city", length = 50)
-	private String city;
+    /**
+     * City where the college is located
+     */
+    @Column(name = "city", length = 50)
+    private String city;
 
-	@Column(name = "phone_no", length = 15)
-	private String phoneNo;
+    /**
+     * Contact phone number of the college
+     */
+    @Column(name = "phone_no", length = 15)
+    private String phoneNo;
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets college name
+     * 
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Sets college name
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    /**
+     * Gets address
+     * 
+     * @return address
+     */
+    public String getAddress() {
+        return address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * Sets address
+     * 
+     * @param address
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getState() {
-		return state;
-	}
+    /**
+     * Gets state
+     * 
+     * @return state
+     */
+    public String getState() {
+        return state;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    /**
+     * Sets state
+     * 
+     * @param state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    /**
+     * Gets city
+     * 
+     * @return city
+     */
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * Sets city
+     * 
+     * @param city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
+    /**
+     * Gets phone number
+     * 
+     * @return phoneNo
+     */
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+    /**
+     * Sets phone number
+     * 
+     * @param phoneNo
+     */
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
-	@Override
-	public String getUniqueKey() {
-		return "name";
-	}
+    /**
+     * Returns unique key for the entity
+     */
+    @Override
+    public String getUniqueKey() {
+        return "name";
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return name;
-	}
+    /**
+     * Returns unique value for the entity
+     */
+    @Override
+    public String getUniqueValue() {
+        return name;
+    }
 
-	@Override
-	public String getLabel() {
-		return "College Name";
-	}
-	
-	@Override
-	public String getTableName() {
-		return "College";
-	}
+    /**
+     * Returns label for UI display
+     */
+    @Override
+    public String getLabel() {
+        return "College Name";
+    }
 
-	@Override
-	public String getValue() {
-		return name;
-	}
+    /**
+     * Returns table name
+     */
+    @Override
+    public String getTableName() {
+        return "College";
+    }
+
+    /**
+     * Returns display value
+     */
+    @Override
+    public String getValue() {
+        return name;
+    }
 }

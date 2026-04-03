@@ -8,120 +8,156 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * TimeTableDTO is a Data Transfer Object (DTO) class that represents
+ * exam timetable details in the system.
+ * 
+ * It contains information such as course, subject, exam date,
+ * exam time, semester, and description.
+ * 
+ * This class is mapped to the database table "st_timetable".
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "st_timetable")
 public class TimeTableDTO extends BaseDTO {
 
-	@Column(name = "course_id", length = 50)
-	private long courseId;
+    /** Course ID */
+    @Column(name = "course_id", length = 50)
+    private long courseId;
 
-	@Column(name = "course_name", length = 50)
-	private String courseName;
+    /** Course Name */
+    @Column(name = "course_name", length = 50)
+    private String courseName;
 
-	@Column(name = "subject_id", length = 50)
-	private long subjectId;
+    /** Subject ID */
+    @Column(name = "subject_id", length = 50)
+    private long subjectId;
 
-	@Column(name = "subject_name", length = 50)
-	private String subjectName;
+    /** Subject Name */
+    @Column(name = "subject_name", length = 50)
+    private String subjectName;
 
-	@Column(name = "exam_date")
-	private Date examDate;
+    /** Exam Date */
+    @Column(name = "exam_date")
+    private Date examDate;
 
-	@Column(name = "exam_time", length = 50)
-	private String examTime;
+    /** Exam Time */
+    @Column(name = "exam_time", length = 50)
+    private String examTime;
 
-	@Column(name = "semester", length = 30)
-	private String semester;
+    /** Semester (e.g., First, Second) */
+    @Column(name = "semester", length = 30)
+    private String semester;
 
-	@Column(name = "description", length = 50)
-	private String description;
+    /** Description */
+    @Column(name = "description", length = 50)
+    private String description;
 
-	public long getCourseId() {
-		return courseId;
-	}
+    // Getters and Setters
 
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
-	}
+    public long getCourseId() {
+        return courseId;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public long getSubjectId() {
-		return subjectId;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
-	}
+    public long getSubjectId() {
+        return subjectId;
+    }
 
-	public String getSubjectName() {
-		return subjectName;
-	}
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
+    }
 
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
+    public String getSubjectName() {
+        return subjectName;
+    }
 
-	public Date getExamDate() {
-		return examDate;
-	}
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
-	public void setExamDate(Date examDate) {
-		this.examDate = examDate;
-	}
+    public Date getExamDate() {
+        return examDate;
+    }
 
-	public String getExamTime() {
-		return examTime;
-	}
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
+    }
 
-	public void setExamTime(String examTime) {
-		this.examTime = examTime;
-	}
+    public String getExamTime() {
+        return examTime;
+    }
 
-	public String getSemester() {
-		return semester;
-	}
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
+    }
 
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+    public String getSemester() {
+        return semester;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public String getUniqueKey() {
-		return "courseName";
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return courseName;
-	}
+    /**
+     * Returns unique key (Course Name)
+     */
+    @Override
+    public String getUniqueKey() {
+        return "courseName";
+    }
 
-	@Override
-	public String getLabel() {
-		return null;
-	}
+    /**
+     * Returns unique value (Course Name)
+     */
+    @Override
+    public String getUniqueValue() {
+        return courseName;
+    }
 
-	@Override
-	public String getTableName() {
-		return "TimeTable";
-	}
+    /**
+     * Returns label for UI display
+     */
+    @Override
+    public String getLabel() {
+        return "TimeTable";
+    }
 
-	@Override
-	public String getValue() {
-		return null;
-	}
+    /**
+     * Returns table name
+     */
+    @Override
+    public String getTableName() {
+        return "TimeTable";
+    }
+
+    /**
+     * Returns display value (Subject + Date + Time)
+     */
+    @Override
+    public String getValue() {
+        return subjectName + " - " + examDate + " (" + examTime + ")";
+    }
 }

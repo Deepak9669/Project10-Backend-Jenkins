@@ -8,74 +8,127 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.CollegeDTO;
 
+/**
+ * CollegeForm is a Form Bean class used to capture
+ * college-related data from the user interface.
+ * 
+ * It includes validation annotations to ensure all required
+ * fields are properly filled before processing.
+ * 
+ * This form is converted into CollegeDTO using getDto() method
+ * for persistence operations.
+ * 
+ * @author Deepak Verma
+ */
 public class CollegeForm extends BaseForm {
 
-	@NotEmpty(message = "Name is required")
-	private String name;
+    /** College name */
+    @NotEmpty(message = "Name is required")
+    private String name;
 
-	@NotEmpty(message = "Address is required")
-	private String address;
+    /** College address */
+    @NotEmpty(message = "Address is required")
+    private String address;
 
-	@NotEmpty(message = "State is required")
-	private String state;
+    /** State */
+    @NotEmpty(message = "State is required")
+    private String state;
 
-	@NotEmpty(message = "City is required")
-	private String city;
+    /** City */
+    @NotEmpty(message = "City is required")
+    private String city;
 
-	@NotNull(message = "Phone No is required")
-	@Pattern(regexp = "(^$|[0-9]{10})")
-	private String phoneNo;
+    /** Phone number (must be 10 digits) */
+    @NotNull(message = "Phone No is required")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits")
+    private String phoneNo;
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets college name
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Sets college name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    /**
+     * Gets address
+     */
+    public String getAddress() {
+        return address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * Sets address
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getState() {
-		return state;
-	}
+    /**
+     * Gets state
+     */
+    public String getState() {
+        return state;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    /**
+     * Sets state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    /**
+     * Gets city
+     */
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * Sets city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
+    /**
+     * Gets phone number
+     */
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+    /**
+     * Sets phone number
+     */
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
-	@Override
-	public BaseDTO getDto() {
+    /**
+     * Converts form data into DTO object
+     * 
+     * @return populated CollegeDTO
+     */
+    @Override
+    public BaseDTO getDto() {
 
-		CollegeDTO dto = initDTO(new CollegeDTO());
-		dto.setName(name);
-		dto.setAddress(address);
-		dto.setState(state);
-		dto.setCity(city);
-		dto.setPhoneNo(phoneNo);
+        CollegeDTO dto = initDTO(new CollegeDTO());
 
-		return dto;
-	}
+        dto.setName(name);
+        dto.setAddress(address);
+        dto.setState(state);
+        dto.setCity(city);
+        dto.setPhoneNo(phoneNo);
+
+        return dto;
+    }
 }

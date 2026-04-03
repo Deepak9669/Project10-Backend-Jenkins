@@ -9,194 +9,247 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * UserDTO is a Data Transfer Object (DTO) class that represents
+ * user details in the system.
+ * 
+ * It contains personal, login, role, and account-related information
+ * such as name, login credentials, role, contact details, status,
+ * login attempts, and profile image.
+ * 
+ * This class is mapped to the database table "st_user".
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "st_user")
 public class UserDTO extends BaseDTO {
 
-	public static final String ACTIVE = "Active";
-	public static final String DEACTIVE = "Deactive";
-	public static final String LOCKED = "Locked";
+    /** User status constants */
+    public static final String ACTIVE = "Active";
+    public static final String DEACTIVE = "Deactive";
+    public static final String LOCKED = "Locked";
 
-	@Column(name = "first_name", length = 50)
-	private String firstName;
+    /** First name of user */
+    @Column(name = "first_name", length = 50)
+    private String firstName;
 
-	@Column(name = "last_name", length = 50)
-	private String lastName;
+    /** Last name of user */
+    @Column(name = "last_name", length = 50)
+    private String lastName;
 
-	@Column(name = "login_id", length = 50)
-	private String loginId;
+    /** Login ID (unique username/email) */
+    @Column(name = "login_id", length = 50)
+    private String loginId;
 
-	@Column(name = "password", length = 50)
-	private String password;
+    /** User password */
+    @Column(name = "password", length = 50)
+    private String password;
 
-	@Column(name = "role_id")
-	private Long roleId;
+    /** Role ID */
+    @Column(name = "role_id")
+    private Long roleId;
 
-	@Column(name = "role_name", length = 50)
-	private String roleName = null;
+    /** Role name */
+    @Column(name = "role_name", length = 50)
+    private String roleName = null;
 
-	@Column(name = "dob")
-	private Date dob;
+    /** Date of birth */
+    @Column(name = "dob")
+    private Date dob;
 
-	@Column(name = "gender", length = 10)
-	private String gender;
+    /** Gender */
+    @Column(name = "gender", length = 10)
+    private String gender;
 
-	@Column(name = "phone", length = 50)
-	private String phone;
+    /** Primary phone number */
+    @Column(name = "phone", length = 50)
+    private String phone;
 
-	@Column(name = "alternate_mobile", length = 50)
-	private String alternateMobile;
+    /** Alternate mobile number */
+    @Column(name = "alternate_mobile", length = 50)
+    private String alternateMobile;
 
-	@Column(name = "status", length = 20)
-	private String status;
+    /** Account status */
+    @Column(name = "status", length = 20)
+    private String status;
 
-	@Column(name = "last_login")
-	private Timestamp lastLogin;
+    /** Last login timestamp */
+    @Column(name = "last_login")
+    private Timestamp lastLogin;
 
-	@Column(name = "unsucess_login")
-	private Integer unsucessfullLoginAttempt = 0;
+    /** Count of unsuccessful login attempts */
+    @Column(name = "unsucess_login")
+    private Integer unsucessfullLoginAttempt = 0;
 
-	@Column(name = "image_id")
-	private Long imageId;
+    /** Profile image ID */
+    @Column(name = "image_id")
+    private Long imageId;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    // Getters and Setters
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getLoginId() {
-		return loginId;
-	}
+    /**
+     * Sets last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+    public String getLoginId() {
+        return loginId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Long getRoleId() {
-		return roleId;
-	}
+    /**
+     * Sets password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
+    public Long getRoleId() {
+        return roleId;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public Date getDob() {
-		return dob;
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    public Date getDob() {
+        return dob;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getAlternateMobile() {
-		return alternateMobile;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setAlternateMobile(String alternateMobile) {
-		this.alternateMobile = alternateMobile;
-	}
+    public String getAlternateMobile() {
+        return alternateMobile;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setAlternateMobile(String alternateMobile) {
+        this.alternateMobile = alternateMobile;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Timestamp getLastLogin() {
-		return lastLogin;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setLastLogin(Timestamp lastLogin) {
-		this.lastLogin = lastLogin;
-	}
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
 
-	public Integer getUnsucessfullLoginAttempt() {
-		return unsucessfullLoginAttempt;
-	}
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
 
-	public void setUnsucessfullLoginAttempt(Integer unsucessfullLoginAttempt) {
-		this.unsucessfullLoginAttempt = unsucessfullLoginAttempt;
-	}
+    public Integer getUnsucessfullLoginAttempt() {
+        return unsucessfullLoginAttempt;
+    }
 
-	public Long getImageId() {
-		return imageId;
-	}
+    public void setUnsucessfullLoginAttempt(Integer unsucessfullLoginAttempt) {
+        this.unsucessfullLoginAttempt = unsucessfullLoginAttempt;
+    }
 
-	public void setImageId(Long imageId) {
-		this.imageId = imageId;
-	}
+    public Long getImageId() {
+        return imageId;
+    }
 
-	public String getName() {
-		return firstName + " " + lastName;
-	}
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
 
-	@Override
-	public String getUniqueKey() {
-		return "loginId";
-	}
+    /**
+     * Returns full name of user
+     */
+    public String getName() {
+        return firstName + " " + lastName;
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return loginId;
-	}
+    /**
+     * Returns unique key (Login ID)
+     */
+    @Override
+    public String getUniqueKey() {
+        return "loginId";
+    }
 
-	@Override
-	public String getLabel() {
-		return "Login Id";
-	}
-	
-	@Override
-	public String getTableName() {
-		return "User";
-	}
+    /**
+     * Returns unique value (Login ID)
+     */
+    @Override
+    public String getUniqueValue() {
+        return loginId;
+    }
 
-	@Override
-	public String getValue() {
-		return null;
-	}
+    /**
+     * Returns label for UI display
+     */
+    @Override
+    public String getLabel() {
+        return "Login Id";
+    }
+
+    /**
+     * Returns table name
+     */
+    @Override
+    public String getTableName() {
+        return "User";
+    }
+
+    /**
+     * Returns display value (Full Name + LoginId)
+     */
+    @Override
+    public String getValue() {
+        return getName() + " (" + loginId + ")";
+    }
 }

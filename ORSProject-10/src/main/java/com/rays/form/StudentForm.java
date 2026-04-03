@@ -12,112 +12,146 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.StudentDTO;
 
+/**
+ * StudentForm is a Form Bean class used to capture
+ * student-related input data from the user interface.
+ * 
+ * It includes validation to ensure required fields such as
+ * enrollment number, personal details, contact information,
+ * and college selection are properly filled.
+ * 
+ * This form is converted into StudentDTO using getDto()
+ * method for persistence operations.
+ * 
+ * @author Deepak Verma
+ */
 public class StudentForm extends BaseForm {
 
-	@NotEmpty(message = "Enroll No is required")
-	private String enrolNo;
+    /** Enrollment number */
+    @NotEmpty(message = "Enroll No is required")
+    private String enrolNo;
 
-	@NotEmpty(message = "First Name is required")
-	private String firstName;
+    /** First name */
+    @NotEmpty(message = "First Name is required")
+    private String firstName;
 
-	@NotEmpty(message = "Last Name is required")
-	private String lastName;
+    /** Last name */
+    @NotEmpty(message = "Last Name is required")
+    private String lastName;
 
-	@NotNull(message = "Date of birth is required")
-	private Date dob;
+    /** Date of birth */
+    @NotNull(message = "Date of birth is required")
+    private Date dob;
 
-	@NotNull(message = "Phone No is required")
-	@Pattern(regexp = "(^$|[0-9]{10})")
-	private String phoneNo;
+    /** Phone number (10 digits) */
+    @NotNull(message = "Phone No is required")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Phone number must be 10 digits")
+    private String phoneNo;
 
-	@NotEmpty(message = "Email ID is required")
-	@Email
-	private String email;
+    /** Email address */
+    @NotEmpty(message = "Email ID is required")
+    @Email(message = "Invalid Email format")
+    private String email;
 
-	@NotNull(message = "College Name is required")
-	@Min(1)
-	private Long collegeId;
+    /** College ID (must be selected) */
+    @NotNull(message = "College Name is required")
+    @Min(value = 1, message = "Please select a valid college")
+    private Long collegeId;
 
-	private String collegeName;
+    /** College name */
+    private String collegeName;
 
-	public String getEnrolNo() {
-		return enrolNo;
-	}
+    // Getters and Setters
 
-	public void setEnrolNo(String enrolNo) {
-		this.enrolNo = enrolNo;
-	}
+    public String getEnrolNo() {
+        return enrolNo;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setEnrolNo(String enrolNo) {
+        this.enrolNo = enrolNo;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Date getDob() {
-		return dob;
-	}
+    /**
+     * Sets last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    public Date getDob() {
+        return dob;
+    }
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+    public String getPhoneNo() {
+        return phoneNo;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Long getCollegeId() {
-		return collegeId;
-	}
+    /**
+     * Sets email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setCollegeId(Long collegeId) {
-		this.collegeId = collegeId;
-	}
+    public Long getCollegeId() {
+        return collegeId;
+    }
 
-	public String getCollegeName() {
-		return collegeName;
-	}
+    public void setCollegeId(Long collegeId) {
+        this.collegeId = collegeId;
+    }
 
-	public void setCollegeName(String collegeName) {
-		this.collegeName = collegeName;
-	}
+    public String getCollegeName() {
+        return collegeName;
+    }
 
-	@Override
-	public BaseDTO getDto() {
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
 
-		StudentDTO dto = initDTO(new StudentDTO());
+    /**
+     * Converts form data into DTO object
+     * 
+     * @return populated StudentDTO
+     */
+    @Override
+    public BaseDTO getDto() {
 
-		dto.setEnrolNo(enrolNo);
-		dto.setFirstName(firstName);
-		dto.setLastName(lastName);
-		dto.setDob(dob);
-		dto.setPhoneNo(phoneNo);
-		dto.setEmail(email);
-		dto.setCollegeId(collegeId);
-		dto.setCollegeName(collegeName);
+        StudentDTO dto = initDTO(new StudentDTO());
 
-		return dto;
-	}
+        dto.setEnrolNo(enrolNo);
+        dto.setFirstName(firstName);
+        dto.setLastName(lastName);
+        dto.setDob(dob);
+        dto.setPhoneNo(phoneNo);
+        dto.setEmail(email);
+        dto.setCollegeId(collegeId);
+        dto.setCollegeName(collegeName);
+
+        return dto;
+    }
 }

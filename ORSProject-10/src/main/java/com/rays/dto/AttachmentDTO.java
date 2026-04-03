@@ -11,101 +11,202 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * AttachmentDTO is a Data Transfer Object (DTO) class that represents
+ * file attachments in the system.
+ * 
+ * It stores file metadata such as name, type, description, userId,
+ * and the actual file content in byte format.
+ * 
+ * This class is mapped to the database table "ST_ATTACHMENT".
+ * 
+ * It also supports file upload using MultipartFile.
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "ST_ATTACHMENT")
 public class AttachmentDTO extends BaseDTO {
 
-	@Column(name = "NAME", length = 100)
-	protected String name = null;
+    /**
+     * Name of the file
+     */
+    @Column(name = "NAME", length = 100)
+    protected String name = null;
 
-	@Column(name = "TYPE", length = 100)
-	protected String type = null;
+    /**
+     * Type of the file (MIME type)
+     */
+    @Column(name = "TYPE", length = 100)
+    protected String type = null;
 
-	@Column(name = "DESCRIPTION", length = 500)
-	protected String description = null;
+    /**
+     * Description of the file
+     */
+    @Column(name = "DESCRIPTION", length = 500)
+    protected String description = null;
 
-	@Column(name = "USER_ID")
-	protected Long userId = null;
+    /**
+     * ID of the user who uploaded the file
+     */
+    @Column(name = "USER_ID")
+    protected Long userId = null;
 
-	@Lob
-	@Column(name = "DOC")
-	private byte[] doc;
+    /**
+     * Actual file content stored as byte array
+     */
+    @Lob
+    @Column(name = "DOC")
+    private byte[] doc;
 
-	public AttachmentDTO() {
-	}
+    /**
+     * Default constructor
+     */
+    public AttachmentDTO() {
+    }
 
-	public AttachmentDTO(MultipartFile file) {
-		name = file.getOriginalFilename();
-		type = file.getContentType();
+    /**
+     * Constructor to create AttachmentDTO from MultipartFile
+     * 
+     * @param file uploaded file
+     */
+    public AttachmentDTO(MultipartFile file) {
+        name = file.getOriginalFilename();
+        type = file.getContentType();
 
-		try {
-			doc = file.getBytes();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        try {
+            doc = file.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets file name
+     * 
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Sets file name
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getType() {
-		return type;
-	}
+    /**
+     * Gets file type
+     * 
+     * @return type
+     */
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    /**
+     * Sets file type
+     * 
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Gets description
+     * 
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * Sets description
+     * 
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Long getUserId() {
-		return userId;
-	}
+    /**
+     * Gets user ID
+     * 
+     * @return userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    /**
+     * Sets user ID
+     * 
+     * @param userId
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public String getValue() {
-		return null;
-	}
+    /**
+     * Gets file content
+     * 
+     * @return doc (byte array)
+     */
+    public byte[] getDoc() {
+        return doc;
+    }
 
-	public byte[] getDoc() {
-		return doc;
-	}
+    /**
+     * Sets file content
+     * 
+     * @param doc
+     */
+    public void setDoc(byte[] doc) {
+        this.doc = doc;
+    }
 
-	public void setDoc(byte[] doc) {
-		this.doc = doc;
-	}
+    /**
+     * Returns display value (not implemented)
+     */
+    public String getValue() {
+        return null;
+    }
 
-	@Override
-	public String getUniqueKey() {
-		return id+"";
-	}
+    /**
+     * Returns unique key (ID as String)
+     */
+    @Override
+    public String getUniqueKey() {
+        return id + "";
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return null;
-	}
+    /**
+     * Returns unique value (not implemented)
+     */
+    @Override
+    public String getUniqueValue() {
+        return null;
+    }
 
-	@Override
-	public String getLabel() {
-		return "Attachment";
-	}
+    /**
+     * Returns label for UI
+     */
+    @Override
+    public String getLabel() {
+        return "Attachment";
+    }
 
-	@Override
-	public String getTableName() {
-		return "Attachment";
-	}
+    /**
+     * Returns table name
+     */
+    @Override
+    public String getTableName() {
+        return "Attachment";
+    }
 }

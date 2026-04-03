@@ -6,72 +6,126 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * MyProfileForm is a Form Bean class used to capture
+ * user profile details from the user interface.
+ * 
+ * It includes validation to ensure required fields such as
+ * name, login ID, gender, phone number, and date of birth
+ * are properly filled.
+ * 
+ * This form is typically used for updating user profile information.
+ * 
+ * @author Deepak Verma
+ */
 public class MyProfileForm {
 
-	@NotEmpty(message = "First Name is required")
-	private String firstName;
+    /** First name of the user */
+    @NotEmpty(message = "First Name is required")
+    private String firstName;
 
-	@NotEmpty(message = "Last Name is required")
-	private String lastName;
+    /** Last name of the user */
+    @NotEmpty(message = "Last Name is required")
+    private String lastName;
 
-	@NotEmpty(message = "Login Id is required")
-	private String loginId;
+    /** Login ID (username/email) */
+    @NotEmpty(message = "Login Id is required")
+    private String loginId;
 
-	@NotEmpty(message = "Gender is required")
-	private String gender;
+    /** Gender */
+    @NotEmpty(message = "Gender is required")
+    private String gender;
 
-	@NotEmpty(message = "Mobile No is required")
-	@Pattern(regexp = "(^$|[0-9]{10})")
-	private String phone;
+    /** Mobile number (10 digits) */
+    @NotEmpty(message = "Mobile No is required")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    private String phone;
 
-	@NotNull(message = "Date of birth is required")
-	private Date dob;
+    /** Date of birth */
+    @NotNull(message = "Date of birth is required")
+    private Date dob;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * Gets first name
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * Sets first name
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * Gets last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * Sets last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getLoginId() {
-		return loginId;
-	}
+    /**
+     * Gets login ID
+     */
+    public String getLoginId() {
+        return loginId;
+    }
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+    /**
+     * Sets login ID
+     */
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    /**
+     * Gets gender
+     */
+    public String getGender() {
+        return gender;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    /**
+     * Sets gender
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    /**
+     * Gets phone number
+     */
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    /**
+     * Sets phone number
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public Date getDob() {
-		return dob;
-	}
+    /**
+     * Gets date of birth
+     */
+    public Date getDob() {
+        return dob;
+    }
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    /**
+     * Sets date of birth
+     */
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 }

@@ -2,94 +2,128 @@ package com.rays.form;
 
 import java.util.Date;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * UserRegistrationForm is a Form Bean class used to capture
+ * user registration data from the user interface.
+ * 
+ * It includes validation rules for name, login ID, password,
+ * date of birth, gender, and phone number to ensure correct
+ * and secure user input.
+ * 
+ * This form is typically used during new user registration.
+ * 
+ * @author Deepak Verma
+ */
 public class UserRegistrationForm {
 
-	@Pattern(regexp = "^[A-Za-z]+(?: [A-Za-z]+)*$", message = "Invalid name format")
-	@NotEmpty(message = "firstName is required")
-	private String firstName;
+    /** First name (alphabets only) */
+    @Pattern(regexp = "^[A-Za-z]+(?: [A-Za-z]+)*$", message = "Invalid name format")
+    @NotEmpty(message = "firstName is required")
+    private String firstName;
 
-	@Pattern(regexp = "^[A-Za-z]+(?: [A-Za-z]+)*$", message = "Invalid name format")
-	@NotEmpty(message = "lastName is required")
-	private String lastName;
+    /** Last name (alphabets only) */
+    @Pattern(regexp = "^[A-Za-z]+(?: [A-Za-z]+)*$", message = "Invalid name format")
+    @NotEmpty(message = "lastName is required")
+    private String lastName;
 
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Login ID should contain only letters and numbers")
-	@NotEmpty(message = "loginId is required")
-	private String loginId;
+    /** Login ID (alphanumeric only) */
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Login ID should contain only letters and numbers")
+    @NotEmpty(message = "loginId is required")
+    private String loginId;
 
-	@NotEmpty(message = "Password is required")
-	@Pattern(regexp = "^[A-Z][a-z0-9]*[@$!%*?&][a-z0-9]*$", message = "Password must start with capital letter, include one special character, and be 8-12 characters long")
-	@Size(min = 8, max = 12)
-	private String password;
+    /**
+     * Password rules:
+     * - Must start with capital letter
+     * - Must contain at least one special character
+     * - Length must be between 8 to 12 characters
+     */
+    @NotEmpty(message = "Password is required")
+    @Pattern(
+        regexp = "^[A-Z][a-z0-9]*[@$!%*?&][a-z0-9]*$",
+        message = "Password must start with capital letter, include one special character, and be 8-12 characters long"
+    )
+    @Size(min = 8, max = 12)
+    private String password;
 
-	@NotNull(message = "Date of birth is required")
-	private Date dob;
+    /** Date of birth */
+    @NotNull(message = "Date of birth is required")
+    private Date dob;
 
-	@NotEmpty(message = "Gender is required")
-	private String gender;
+    /** Gender */
+    @NotEmpty(message = "Gender is required")
+    private String gender;
 
-	@NotEmpty(message = "Mobile No is required")
-	@Pattern(regexp = "(^$|[0-9]{10})")
-	private String phone;
+    /** Mobile number (10 digits) */
+    @NotEmpty(message = "Mobile No is required")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+    private String phone;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    // Getters and Setters
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getLoginId() {
-		return loginId;
-	}
+    /**
+     * Sets last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
+    public String getLoginId() {
+        return loginId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Date getDob() {
-		return dob;
-	}
+    /**
+     * Sets password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    public Date getDob() {
+        return dob;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

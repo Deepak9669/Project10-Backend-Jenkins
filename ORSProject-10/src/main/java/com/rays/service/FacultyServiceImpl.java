@@ -7,8 +7,28 @@ import com.rays.common.BaseServiceImpl;
 import com.rays.dao.FacultyDAOInt;
 import com.rays.dto.FacultyDTO;
 
+/**
+ * Implementation of FacultyServiceInt interface.
+ * 
+ * This class provides the business logic for Faculty
+ * related operations. It extends BaseServiceImpl to
+ * inherit common CRUD functionalities and interacts
+ * with FacultyDAOInt for data access operations.
+ * 
+ * <p>
+ * Annotated with {@code @Service} to mark it as a Spring
+ * service component.
+ * </p>
+ * 
+ * <p>
+ * Annotated with {@code @Transactional} to ensure that
+ * all methods execute within a transactional context.
+ * </p>
+ * 
+ * @author 
+ */
 @Service
 @Transactional
-public class FacultyServiceImpl extends BaseServiceImpl<FacultyDTO, FacultyDAOInt> implements FacultyServiceInt{
+public class FacultyServiceImpl extends BaseServiceImpl<FacultyDTO, FacultyDAOInt> implements FacultyServiceInt {
 
 }
