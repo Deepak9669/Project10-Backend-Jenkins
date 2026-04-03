@@ -49,8 +49,8 @@ public class ORSProject10Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
 
-               registry.addMapping("/**")
-        .allowedOriginPatterns("*")
+              registry.addMapping("/**")
+        .allowedOrigins("http://localhost:4200")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedHeaders("*")
         .allowCredentials(true);
