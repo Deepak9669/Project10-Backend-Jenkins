@@ -21,85 +21,92 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.sf.jasperreports.engine.*;
 
+/**
+ * JasperCtl is a REST controller used for generating Jasper Reports in PDF
+ * format.
+ * 
+ * It loads JRXML file, compiles it, fills data using database connection, and
+ * returns the generated PDF as HTTP response.
+ * 
+ * All endpoints are mapped under "/jasper".
+ * 
+ * @author Deepak Verma
+ */
 @Transactional
 @RestController
 @RequestMapping("/jasper")
 public class JasperCtl {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	/**
+	 * EntityManager for database access
+	 */
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    private SessionFactory sessionFactory;
+	/**
+	 * Hibernate SessionFactory
+	 */
+	private SessionFactory sessionFactory;
 
-    @GetMapping(value = "/report", produces = MediaType.APPLICATION_PDF_VALUE)
-    public void generateReport(HttpServletResponse response) {
+	/**
+	 * Generates Jasper report and returns PDF response
+	 * 
+	 * @param response HttpServletResponse object
+	 * @throws JRException  Jasper exception
+	 * @throws IOException  IO exception
+	 * @throws SQLException SQL exception
+	 */
+	@GetMapping(value = "/report", produces = MediaType.APPLICATION_PDF_VALUE)
+	public void generateReport(HttpServletResponse response) throws JRException, IOException, SQLException {
 
-        System.out.println("******** Jasper Report Start ********");
+		System.out.println("******** Jasper Report Start ********");
 
-        Connection con = null;
+		Connection con = null;
 
-        try {
-            // ✅ Docker-safe JRXML loading
-            InputStream input = Thread.currentThread()
-                    .getContextClassLoader()
-                    .getResourceAsStream("reports/Deepak.jrxml");
+		try {
+			// Load JRXML file from resources
+			InputStream input = getClass().getResourceAsStream("/reports/Deepak.jrxml");
 
-            if (input == null) {
-                throw new RuntimeException("❌ JRXML file not found in resources/reports");
-            }
+			if (input == null) {
+				throw new RuntimeException("JRXML file not found in resources/reports");
+			}
 
-            // ✅ Compile report
-            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+			// Compile JRXML to JasperReport
+			JasperReport jasperReport = JasperCompileManager.compileReport(input);
 
-            // ✅ Parameters
-            Map<String, Object> params = new HashMap<>();
-            params.put("createdBy", "Admin");
+			// Set parameters for report
+			Map<String, Object> params = new HashMap<>();
+			params.put("createdBy", "Admin");
 
-            // ✅ DB Connection
-            sessionFactory = entityManager.getEntityManagerFactory().unwrap(SessionFactory.class);
+			// Get DB connection from Hibernate
+			sessionFactory = entityManager.getEntityManagerFactory().unwrap(SessionFactory.class);
 
-            con = sessionFactory.getSessionFactoryOptions()
-                    .getServiceRegistry()
-                    .getService(ConnectionProvider.class)
-                    .getConnection();
+			con = sessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class)
+					.getConnection();
 
-            // ✅ Fill report
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, con);
+			// Fill report with data
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, con);
 
-            // ✅ Export to PDF
-            byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			// Export report to PDF
+			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
 
-            // ✅ Response headers (VERY IMPORTANT)
-            response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "inline; filename=marksheet.pdf");
-            response.setContentLength(pdf.length);
+			// Set response headers
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "inline; filename=marksheet.pdf");
 
-            // ✅ Write PDF
-            response.getOutputStream().write(pdf);
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
+			// Write PDF to response
+			response.getOutputStream().write(pdf);
+			response.getOutputStream().flush();
 
-            System.out.println("✅ Jasper Report Generated Successfully");
+			System.out.println("******** Report Generated ********");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            try {
-                response.setContentType("text/plain");
-                response.getWriter().write("Error generating PDF: " + e.getMessage());
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-
-        } finally {
-            // ✅ Close connection
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// Close DB connection
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
 }

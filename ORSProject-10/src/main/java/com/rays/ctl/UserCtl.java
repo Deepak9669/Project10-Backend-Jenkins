@@ -139,41 +139,35 @@ public class UserCtl extends BaseCtl<UserForm, UserDTO, UserServiceInt> {
 	@PostMapping(value = "/profilePic/{userId}", consumes = "multipart/form-data")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file) {
 
-		try {
-
-			if (file == null || file.isEmpty()) {
-				throw new RuntimeException("File is empty!");
-			}
-
-			System.out.println("File Name: " + file.getOriginalFilename());
-			System.out.println("File Size: " + file.getSize());
-
-			AttachmentDTO attachmentDto = new AttachmentDTO(file);
-			attachmentDto.setDescription("profile pic");
-			attachmentDto.setUserId(userId);
-
-			UserDTO userDto = baseService.findById(userId, null);
-
-			if (userDto.getImageId() != null && userDto.getImageId() > 0) {
-				attachmentDto.setId(userDto.getImageId());
-			}
-
-			Long imageId = attachmentService.save(attachmentDto, userContext);
-
-			if (userDto.getImageId() == null) {
-				userDto.setImageId(imageId);
-				baseService.update(userDto, userContext);
-			}
-
-			ORSResponse res = new ORSResponse();
-			res.addResult("imageId", imageId);
-
-			return res;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("File upload failed");
+		if (file == null || file.isEmpty()) {
+			throw new RuntimeException("File is empty!");
 		}
+
+		System.out.println("File Name: " + file.getOriginalFilename());
+		System.out.println("File Size: " + file.getSize());
+
+		AttachmentDTO attachmentDto = new AttachmentDTO(file);
+		attachmentDto.setDescription("profile pic");
+		attachmentDto.setUserId(userId);
+
+		UserDTO userDto = baseService.findById(userId, null);
+
+		if (userDto.getImageId() != null && userDto.getImageId() > 0) {
+			attachmentDto.setId(userDto.getImageId());
+		}
+
+		Long imageId = attachmentService.save(attachmentDto, userContext);
+
+		if (userDto.getImageId() == null) {
+			userDto.setImageId(imageId);
+			baseService.update(userDto, userContext);
+		}
+
+		ORSResponse res = new ORSResponse();
+		res.addResult("imageId", imageId);
+
+		return res;
+
 	}
 
 	/**

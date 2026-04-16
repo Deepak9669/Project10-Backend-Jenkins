@@ -80,6 +80,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, UserDAOInt> implem
         map.put("firstName", dto.getFirstName());
 
         EmailMessage msg = new EmailMessage();
+        
         msg.setTo(dto.getLoginId());
         msg.setSubject("User Registration Successful");
         msg.setMessage(EmailBuilder.getUserRegistrationMessage(map));

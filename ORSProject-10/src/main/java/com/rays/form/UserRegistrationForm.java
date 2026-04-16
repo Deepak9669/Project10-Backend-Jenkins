@@ -32,7 +32,6 @@ public class UserRegistrationForm {
     private String lastName;
 
     /** Login ID (alphanumeric only) */
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Login ID should contain only letters and numbers")
     @NotEmpty(message = "loginId is required")
     private String loginId;
 
