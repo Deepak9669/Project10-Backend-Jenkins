@@ -1,10 +1,14 @@
 package com.rays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.rays.common.FrontCtl;
 
 /**
  * Main class for ORS Project 10 Spring Boot Application.
@@ -27,6 +31,8 @@ public class ORSProject10Application {
         SpringApplication.run(ORSProject10Application.class, args);
     }
 
+//    @Autowired
+//	private FrontCtl frontCtl;
     /**
      * Configures global CORS settings for the application.
      * <p>
@@ -55,6 +61,12 @@ public class ORSProject10Application {
         .allowedHeaders("*")
         .allowCredentials(true);
             }
+            
+//            @Override
+//			public void addInterceptors(InterceptorRegistry registry) {
+//				registry.addInterceptor(frontCtl).addPathPatterns("/**").excludePathPatterns("/Auth/**");
+//			}
+            
         };
 
         return w;
