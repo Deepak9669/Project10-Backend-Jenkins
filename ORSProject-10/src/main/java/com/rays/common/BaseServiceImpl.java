@@ -40,7 +40,12 @@ public class BaseServiceImpl<T extends BaseDTO, D extends BaseDAOInt<T>> impleme
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public long add(T dto, UserContext userContext) throws DuplicateRecordException {
-        return baseDao.add(dto, userContext);
+       long pk =  baseDao.add(dto, userContext);
+       
+       
+       
+	return pk;
+     
     }
 
     /**
