@@ -14,6 +14,7 @@ public class JobForm extends BaseForm {
 	@NotEmpty(message = "jobCode is required")
 	private String jobCode;
 	@NotEmpty(message = "jobName is required")
+	@Pattern(regexp = "^[a-zA-Z ]*$", message = "Only alphabets allowed")
 	private String jobName;
 	@NotEmpty(message = "priority is required")
 	private String priority;
