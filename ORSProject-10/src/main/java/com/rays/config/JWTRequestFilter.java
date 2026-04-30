@@ -1,6 +1,7 @@
 package com.rays.config;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -76,47 +78,33 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 					throw new Exception("Invalid JWT token");
 				}
 
-				if (loginId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				   if (loginId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+					   
+	                    String role = jwtUtil.extractRole(jwtToken);
+	                    
+	                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+	                            loginId, null,
+	                            List.of(new SimpleGrantedAuthority("ROLE_" + role))
+	                    );
+	                    
+	                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+	                    
+	                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+	                }
 
-					UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(loginId);
-
-					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-							userDetails, null, userDetails.getAuthorities());
-
-					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-				}
-
-				UserDTO dto = new UserDTO();
-				dto.setLoginId(loginId);
-				UserContextHolder.setContext(new UserContext(dto));
-
-				// Fetch user from database to get complete details
-				UserContext tempContext = new UserContext(dto);
-				UserDTO fullUserDTO = userService.findByLoginId(loginId, tempContext);
-
-				if (fullUserDTO != null) {
-					UserContext context = new UserContext(fullUserDTO);
-					UserContextHolder.setContext(context);
-				} else {
-					UserContext context = new UserContext(dto);
-					UserContextHolder.setContext(context);
-				}
-			} catch (CannotCreateTransactionException | DataAccessResourceFailureException
-					| JDBCConnectionException e) {
-				// DB is down
-				response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE); // 503
-				response.setContentType("application/json");
-				response.getWriter().write(
-						"{\"result\":{\"message\":\"Database server down!! Please try again later.\"},\"success\":false}");
-				return;
-			}catch (Exception e) {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				response.getWriter().write("Token is invalid... plz login again..!!");
-				return;
-			}
-		}
-		filterChain.doFilter(request, response);
+	                UserDTO dto = new UserDTO();
+	                dto.setLoginId(loginId);
+	                dto.setId(jwtUtil.extractUserId(jwtToken)); 
+	                System.out.println("request filter: " + dto.getLoginId());
+	                UserContext context = new UserContext(dto);
+	                UserContextHolder.setContext(context);
+	            } catch (Exception e) {
+	                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	                response.setContentType("application/json");
+	                response.getWriter().write(e.getMessage());
+	                return;
+	            }
+	        } 
+	        filterChain.doFilter(request, response);
+	    }
 	}
-}
