@@ -87,6 +87,10 @@ public class JobDAOImpl extends BaseDAOImpl<JobDTO> implements JobDAOInt{
 			whereCondition.add(builder.like(qRoot.get("jobName"), dto.getJobName() + "%"));
 		}
 		
+		if(!isEmptyString(dto.getStatus())) {
+			whereCondition.add(builder.like(qRoot.get("status"), dto.getStatus() + "%"));
+		}
+		
 		// Filter by cityId
 		if(isNotNull(dto.getCityId())) {
 			whereCondition.add(builder.equal(qRoot.get("cityId"), dto.getCityId()));
