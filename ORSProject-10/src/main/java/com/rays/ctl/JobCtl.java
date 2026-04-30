@@ -16,26 +16,43 @@ import com.rays.form.JobForm;
 import com.rays.service.CityServiceInt;
 import com.rays.service.JobServiceInt;
 
+/**
+ * JobCtl is a REST Controller for handling Job-related requests.
+ * It extends BaseCtl to provide common CRUD REST APIs.
+ * 
+ * This controller also provides a preload API to fetch
+ * required data (like city list) for UI dropdowns.
+ * 
+ * It interacts with JobService and CityService for business logic.
+ * 
+ * @author Deepak Verma
+ */
 @RestController
 @RequestMapping("Job")
 public class JobCtl extends BaseCtl<JobForm, JobDTO, JobServiceInt> {
 
-	@Autowired
-	CityServiceInt cityService;
+    /** Service for City-related operations */
+    @Autowired
+    CityServiceInt cityService;
 
-	@GetMapping("preload")
-	public ORSResponse preload() {
-		ORSResponse res = new ORSResponse();
+    /**
+     * Preloads data required for Job form.
+     * It fetches city list for dropdown.
+     * 
+     * @return ORSResponse containing city list
+     */
+    @GetMapping("preload")
+    public ORSResponse preload() {
+        ORSResponse res = new ORSResponse();
 
-		CityDTO dto = new CityDTO();
+        CityDTO dto = new CityDTO();
 
-		List<DropdownList> list = cityService.search(dto, userContext);
+        List<DropdownList> list = cityService.search(dto, userContext);
 
-		res.addResult("cityList", list);
-		res.setSuccess(true);
+        res.addResult("cityList", list);
+        res.setSuccess(true);
 
-		return res;
-
-	}
+        return res;
+    }
 
 }

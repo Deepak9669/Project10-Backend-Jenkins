@@ -6,95 +6,186 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * JobDTO represents a Job entity in the system.
+ * It contains job-related information such as job code,
+ * job name, priority, status, and city details.
+ * 
+ * @author Deepak Verma
+ */
 @Entity
 @Table(name = "st_job")
 public class JobDTO extends BaseDTO {
 
-	@Column(name = "jobCode", length = 50)
-	private String jobCode;
-	@Column(name = "jobName", length = 50)
-	private String jobName;
-	@Column(name = "priority", length = 50)
-	private String priority;
-	@Column(name = "status", length = 50)
-	private String status;
+    /** Job Code of the job */
+    @Column(name = "jobCode", length = 50)
+    private String jobCode;
 
-	@Column(name = "cityId", length = 50)
-	private Long cityId;
-	@Column(name = "cityName", length = 50)
-	private String cityName;
+    /** Name of the job */
+    @Column(name = "jobName", length = 50)
+    private String jobName;
 
-	public Long getCityId() {
-		return cityId;
-	}
+    /** Priority level of the job */
+    @Column(name = "priority", length = 50)
+    private String priority;
 
-	public void setCityId(Long cityId) {
-		this.cityId = cityId;
-	}
+    /** Status of the job */
+    @Column(name = "status", length = 50)
+    private String status;
 
-	public String getCityName() {
-		return cityName;
-	}
+    /** City ID associated with the job */
+    @Column(name = "cityId", length = 50)
+    private Long cityId;
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
+    /** City Name associated with the job */
+    @Column(name = "cityName", length = 50)
+    private String cityName;
 
-	public String getJobCode() {
-		return jobCode;
-	}
+    /**
+     * Gets the city ID.
+     * 
+     * @return cityId
+     */
+    public Long getCityId() {
+        return cityId;
+    }
 
-	public void setJobCode(String jobCode) {
-		this.jobCode = jobCode;
-	}
+    /**
+     * Sets the city ID.
+     * 
+     * @param cityId the city ID to set
+     */
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
 
-	public String getJobName() {
-		return jobName;
-	}
+    /**
+     * Gets the city name.
+     * 
+     * @return cityName
+     */
+    public String getCityName() {
+        return cityName;
+    }
 
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
+    /**
+     * Sets the city name.
+     * 
+     * @param cityName the city name to set
+     */
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
-	public String getPriority() {
-		return priority;
-	}
+    /**
+     * Gets the job code.
+     * 
+     * @return jobCode
+     */
+    public String getJobCode() {
+        return jobCode;
+    }
 
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
+    /**
+     * Sets the job code.
+     * 
+     * @param jobCode the job code to set
+     */
+    public void setJobCode(String jobCode) {
+        this.jobCode = jobCode;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * Gets the job name.
+     * 
+     * @return jobName
+     */
+    public String getJobName() {
+        return jobName;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * Sets the job name.
+     * 
+     * @param jobName the job name to set
+     */
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
 
-	@Override
-	public String getValue() {
-		return jobCode;
-	}
+    /**
+     * Gets the priority.
+     * 
+     * @return priority
+     */
+    public String getPriority() {
+        return priority;
+    }
 
-	@Override
-	public String getUniqueKey() {
-		return "jobCode";
-	}
+    /**
+     * Sets the priority.
+     * 
+     * @param priority the priority to set
+     */
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 
-	@Override
-	public String getUniqueValue() {
-		return jobCode;
-	}
+    /**
+     * Gets the status.
+     * 
+     * @return status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-	@Override
-	public String getLabel() {
-		return "jobCode";
-	}
+    /**
+     * Sets the status.
+     * 
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	@Override
-	public String getTableName() {
-		return "Job";
-	}
+    /**
+     * Returns the value used in UI (jobCode).
+     */
+    @Override
+    public String getValue() {
+        return jobCode;
+    }
 
+    /**
+     * Returns the unique key field name.
+     */
+    @Override
+    public String getUniqueKey() {
+        return "jobCode";
+    }
+
+    /**
+     * Returns the unique value of the object.
+     */
+    @Override
+    public String getUniqueValue() {
+        return jobCode;
+    }
+
+    /**
+     * Returns the label used for display.
+     */
+    @Override
+    public String getLabel() {
+        return "jobCode";
+    }
+
+    /**
+     * Returns the table name.
+     */
+    @Override
+    public String getTableName() {
+        return "Job";
+    }
 }

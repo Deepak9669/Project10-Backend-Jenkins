@@ -3,92 +3,171 @@ package com.rays.form;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.JobDTO;
 
+/**
+ * JobForm is used to capture user input for Job entity.
+ * It contains validation annotations to ensure correct data input.
+ * This form converts data into JobDTO.
+ * 
+ * @author Deepak Verma
+ */
 public class JobForm extends BaseForm {
 
-	
-	@NotEmpty(message = "jobCode is required")
-	private String jobCode;
-	@NotEmpty(message = "jobName is required")
-	private String jobName;
-	@NotEmpty(message = "priority is required")
-	private String priority;
-	@NotEmpty(message = "status is required")
-	private String status;
+    /** Job code is required */
+    @NotEmpty(message = "jobCode is required")
+    private String jobCode;
 
-	@NotNull(message = "cityId is required")
-	@Min(1)
-	private Long cityId;
-	
-	public Long getCityId() {
-		return cityId;
-	}
+    /** Job name is required and only alphabets are allowed */
+    @NotEmpty(message = "jobName is required")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Only alphabets allowed")
+    private String jobName;
 
-	public void setCityId(Long cityId) {
-		this.cityId = cityId;
-	}
+    /** Priority is required */
+    @NotEmpty(message = "priority is required")
+    private String priority;
 
-	public String getCityName() {
-		return cityName;
-	}
+    /** Status is required */
+    @NotEmpty(message = "status is required")
+    private String status;
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
+    /** City ID must be greater than 0 */
+    @NotNull(message = "cityId is required")
+    @Min(1)
+    private Long cityId;
 
-	private String cityName;
-	
-	
+    /** City Name */
+    private String cityName;
 
-	public String getJobCode() {
-		return jobCode;
-	}
+    /**
+     * Gets the city ID.
+     * 
+     * @return cityId
+     */
+    public Long getCityId() {
+        return cityId;
+    }
 
-	public void setJobCode(String jobCode) {
-		this.jobCode = jobCode;
-	}
+    /**
+     * Sets the city ID.
+     * 
+     * @param cityId the city ID to set
+     */
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
 
-	public String getJobName() {
-		return jobName;
-	}
+    /**
+     * Gets the city name.
+     * 
+     * @return cityName
+     */
+    public String getCityName() {
+        return cityName;
+    }
 
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
+    /**
+     * Sets the city name.
+     * 
+     * @param cityName the city name to set
+     */
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
-	public String getPriority() {
-		return priority;
-	}
+    /**
+     * Gets the job code.
+     * 
+     * @return jobCode
+     */
+    public String getJobCode() {
+        return jobCode;
+    }
 
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
+    /**
+     * Sets the job code.
+     * 
+     * @param jobCode the job code to set
+     */
+    public void setJobCode(String jobCode) {
+        this.jobCode = jobCode;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * Gets the job name.
+     * 
+     * @return jobName
+     */
+    public String getJobName() {
+        return jobName;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * Sets the job name.
+     * 
+     * @param jobName the job name to set
+     */
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
 
-	@Override
-	public BaseDTO getDto() {
+    /**
+     * Gets the priority.
+     * 
+     * @return priority
+     */
+    public String getPriority() {
+        return priority;
+    }
 
-		JobDTO dto = initDTO(new JobDTO());
+    /**
+     * Sets the priority.
+     * 
+     * @param priority the priority to set
+     */
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 
-		dto.setJobCode(jobCode);
-		dto.setJobName(jobName);
-		dto.setStatus(status);
-		dto.setPriority(priority);
-		dto.setCityId(cityId);
-		dto.setCityName(cityName);
+    /**
+     * Gets the status.
+     * 
+     * @return status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-		return dto;
-	}
+    /**
+     * Sets the status.
+     * 
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
+    /**
+     * Converts form data into JobDTO.
+     * 
+     * @return BaseDTO (JobDTO object)
+     */
+    @Override
+    public BaseDTO getDto() {
+
+        JobDTO dto = initDTO(new JobDTO());
+
+        dto.setJobCode(jobCode);
+        dto.setJobName(jobName);
+        dto.setStatus(status);
+        dto.setPriority(priority);
+        dto.setCityId(cityId);
+        dto.setCityName(cityName);
+
+        return dto;
+    }
 }
