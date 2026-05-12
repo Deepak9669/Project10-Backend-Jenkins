@@ -10,7 +10,7 @@ public class CityForm extends BaseForm {
 
 	@NotEmpty(message = "state name is required")
 	private String state;
-	@NotEmpty(message = "state name is required")
+	@NotEmpty(message = "city name is required")
 	private String city;
 
 	public String getState() {

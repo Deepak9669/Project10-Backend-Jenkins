@@ -53,7 +53,7 @@ public class CityDTO extends BaseDTO {
 
 	@Override
 	public String getTableName() {
-		return "ity";
+		return "City";
 	}
 
 }
