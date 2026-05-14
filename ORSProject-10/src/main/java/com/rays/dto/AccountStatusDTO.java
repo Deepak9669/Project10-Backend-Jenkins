@@ -33,6 +33,7 @@ public class AccountStatusDTO extends BaseDTO{
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+		
 	}
 
 	public String getAccountType() {
