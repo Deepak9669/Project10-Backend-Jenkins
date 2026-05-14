@@ -11,5 +11,6 @@ import com.rays.dto.AccountStatusDTO;
 @Transactional
 public class AccountStatusServiceImpl extends BaseServiceImpl<AccountStatusDTO, AccountStatusDAOInt>
 		implements AccountStatusServiceInt {
+			
 
 }
