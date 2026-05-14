@@ -11,5 +11,6 @@ import com.rays.service.AccountStatusServiceInt;
 @RestController
 @RequestMapping("Account")
 public class AccountStatusCtl extends BaseCtl<AccountStatusForm, AccountStatusDTO, AccountStatusServiceInt> {
+  
 
 }
