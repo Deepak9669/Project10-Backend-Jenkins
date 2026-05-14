@@ -17,6 +17,7 @@ public class AccountStatusDAOImpl extends BaseDAOImpl<AccountStatusDTO> implemen
 	@Override
 	public Class<AccountStatusDTO> getDTOClass() {
 		return AccountStatusDTO.class;
+		
 	}
 
 	@Override
